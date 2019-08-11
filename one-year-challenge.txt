@@ -1,0 +1,39 @@
+Today I started the one year challenge, roughly based on other challenges, like this one: https://www.experttabletennis.com/expert-in-a-year/
+
+The challenge is this: in 256 days, I will have a decent competing time on 1000m Breastroke.
+
+
+Today was day 0, so let's add it to the log:
+
+Day 0 (Sunday, 11th of August of 2019) (Yes, I won't follow english/american date formats.)
+
+Time: 32 minutes.
+Pool: Short course (25m)
+
+As I didn't use a chronometer, just saw the time on the clock, I will set this as a "starting average" of my time. This translates roughly to 1920 seconds, which I will use in my goals.
+
+The initial goal is to scrap 1% of the time each day. That means that each day, my goal is going to be T_n-1, the time of the day before times 0.99 or 99%.
+So it is a recurrence: T_n = T_n-1 * 0.99
+
+For example, the time goal for day 1 will be 1900.8 because 1920 * 0.99 = 1900.8 (That is about 31 minutes and 41 seconds, or 31:41 as I will use in this challenge.)
+
+So:
+T_0 = 1920 (32:00)
+T_1 = 1900,8 (~31:41)
+....
+T_255 ~= 148s (2:28)
+
+Which is pretty stupid. No one can swim that fast.
+
+So I will stablish a "thoretical goal" of swimming 1000m breastroke in the same time as the world record for 1500m freestyle that is around 14:08 or 848 seconds.
+
+That will be the "floor line" of my graph.
+
+To make the "expected" function, I will try to half my time in 256 or so sessions, to keep the numbers nice and powers of two.
+
+So, my goal will be to find a percentage in a way that T_256 = 1920/2 = 960 (16:00)
+
+After a little math, the percentage x is x = (1/2)^(1/256) ~= 0,997296056
+
+That seem like a nice curve to follow for now. If I start to deviate much from this, I will choose another one.
+
