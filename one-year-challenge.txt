@@ -37,3 +37,6 @@ After a little math, the percentage x is x = (1/2)^(1/256) ~= 0,997296056
 
 That seem like a nice curve to follow for now. If I start to deviate much from this, I will choose another one.
 
+I will be also measuring my weight so:
+Weight: 92,5kg
+
