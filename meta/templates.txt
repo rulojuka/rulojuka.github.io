@@ -1,0 +1,33 @@
+Templates
+
+Site: https://html5up.net/
+
+https://html5up.net/highlights
+  - direto ao ponto
+
+https://html5up.net/solid-state
+  - direto ao ponto
+  - lindo
+
+https://html5up.net/story
+  - completo
+  - pode ser usado como referência
+
+https://html5up.net/stellar
+  - ótimo navbar
+
+https://html5up.net/hyperspace
+  - barra lateral (não aparece no mobile)
+  - visualização legal com foto/texto em todos os itens
+
+https://html5up.net/strata <-- vai ser a base
+  - barra lateral perfeita que aparece no mobile
+  - falta adicionar navbar
+
+https://html5up.net/read-only
+  - quase muito bom
+  - cores/estilo feio
+  - barra lateral (não aparece no mobile)
+
+https://html5up.net/prologue
+  - barra lateral muito boa (mas não aparece no mobile)
