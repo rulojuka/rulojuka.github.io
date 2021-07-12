@@ -1,0 +1,138 @@
+<html>
+
+<head></head>
+
+<body>
+
+  <div id="spin-button">
+    <canvas id="roleta" width="800" height="800"></canvas>
+  </div>
+
+  <script>
+    // referencias legais:
+    // https://raksy.dyndns.org/wheel.html
+    // https://stackoverflow.com/a/33850748/2272160
+    // https://konvajs.org/docs/sandbox/Wheel_of_Fortune.html
+    let canvas, ctx
+    let centerX, centerY
+    var radius = 350;
+    const tau = Math.PI * 2;
+    const EL_spin = document.querySelector("#spin-button");
+
+    const rand = (m, M) => Math.random() * (M - m) + m;
+    const friction = rand(0.995, 0.997); // 0.995 is fast, 0.997 is slow
+    let angVel = 0; // Initial Angular velocity
+    let ang = rand(0, tau); // Initial angle in radians
+
+    (function () {
+      const canvas = document.getElementById('roleta')
+      const ctx = canvas.getContext('2d')
+      centerX = canvas.width / 2;
+      centerY = canvas.height / 2;
+    })()
+
+    // setup config variables and start the program
+    function init() {
+      canvas = document.getElementById('roleta')
+      ctx = canvas.getContext('2d')
+      draw(ang);
+      engine();
+      EL_spin.addEventListener("click", () => {
+        console.log("rodou a roleta!") // Should play music here.
+        if (!angVel) angVel = rand(0.25, 0.35);
+      });
+    }
+
+    const sum = 65.9
+    const sections = [
+      { text: "Alessandro", size: 5.9 / sum },
+      { text: "Diego", size: 6.3 / sum },
+      { text: "Gabriel", size: 7.6 / sum },
+      { text: "Renato", size: 5.8 / sum },
+      { text: "Romio", size: 7.7 / sum },
+      { text: "Rafa", size: 10.0 / sum },
+      { text: "Pedro", size: 6.3 / sum },
+      { text: "Katague", size: 6.3 / sum },
+      { text: "Samu", size: 7.0 / sum },
+      { text: "Vivian", size: 3.0 / sum },
+    ]
+
+    function draw(angleOffset) {
+      ctx.save()
+      ctx.strokeStyle = 'black'
+      ctx.fillStyle = 'red'
+
+      drawCircle(centerX, centerY, radius)
+      drawPointer(centerX + radius, centerY)
+
+      var total = 0
+      sections.forEach(line => {
+        ctx.save()
+        ctx.translate(centerX, centerY)
+
+        ctx.rotate(angleOffset + tau * total);
+        drawLine(radius)
+
+        ctx.rotate(tau * (line.size / 2));
+        drawText(line.text, radius);
+
+        ctx.restore()
+        total += line.size
+      })
+
+      ctx.restore()
+    }
+
+    function drawCircle() {
+      // x, y, radius, startAngle, endAngle, antiClockwise = false by default
+      ctx.beginPath()
+      ctx.arc(centerX, centerY, radius, 0, tau, true)
+      ctx.fill()
+    }
+
+    function drawLine(radius) {
+      ctx.beginPath()
+      ctx.moveTo(0, 0) // starting point
+      ctx.lineTo(radius, 0)
+      ctx.stroke()
+    }
+
+    function drawText(text, radius) {
+      ctx.save()
+      ctx.fillStyle = 'black'
+      ctx.font = "20px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, radius / 3 * 2, 0);
+      ctx.restore()
+    }
+
+    function drawPointer(x, y) {
+      ctx.save()
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + 30, y + 30);
+      ctx.lineTo(x + 30, y - 30);
+      ctx.fill();
+      ctx.restore()
+    }
+
+    function frame() {
+      if (!angVel) return;
+      angVel *= friction; // Decrement velocity by friction
+      if (angVel < 0.001) angVel = 0; // Bring to stop
+      ang += angVel; // Update angle
+      ang %= tau; // Normalize angle
+      draw(ang);
+    }
+
+    function engine() {
+      frame();
+      requestAnimationFrame(engine)
+    }
+
+    document.addEventListener('DOMContentLoaded', init)
+  </script>
+
+</body>
+
+</html>
