@@ -20,7 +20,7 @@
     const EL_spin = document.querySelector("#spin-button");
 
     const rand = (m, M) => Math.random() * (M - m) + m;
-    const friction = rand(0.995, 0.997); // 0.995 is fast, 0.997 is slow
+    const friction = rand(0.996, 0.998); // 0.996 is fast, 0.998 is slow
     let angVel = 0; // Initial Angular velocity
     let ang = rand(0, tau); // Initial angle in radians
 
@@ -43,19 +43,42 @@
       });
     }
 
-    const sum = 65.9
-    const sections = [
-      { text: "Alessandro", size: 5.9 / sum },
-      { text: "Diego", size: 6.3 / sum },
-      { text: "Gabriel", size: 7.6 / sum },
-      { text: "Renato", size: 5.8 / sum },
-      { text: "Romio", size: 7.7 / sum },
-      { text: "Rafa", size: 10.0 / sum },
-      { text: "Pedro", size: 6.3 / sum },
-      { text: "Katague", size: 6.3 / sum },
-      { text: "Samu", size: 7.0 / sum },
-      { text: "Vivian", size: 3.0 / sum },
+    const values = [
+      5.636,
+      6.000,
+      8.000,
+      5.300,
+      7.667,
+      10.400,
+      6.833,
+      6.667,
+      7.250,
+      5.000
     ]
+    const names = [
+      "Alessandro",
+      "Diego",
+      "Gabriel",
+      "Renato",
+      "Romio",
+      "Rafa",
+      "Pedro",
+      "Katague",
+      "Samu",
+      "Vivian"
+    ]
+
+    const sum = values.reduce((a, b) => a+b)
+    const sections = []
+    for (let index = 0; index < values.length; index++) {
+      const element = {
+        text: names[index],
+        size: values[index] / sum
+      }
+      sections.push(element)
+    }
+
+    console.log("Versão 01/08/2021")
 
     function draw(angleOffset) {
       ctx.save()
