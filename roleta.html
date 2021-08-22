@@ -20,9 +20,11 @@
     const EL_spin = document.querySelector("#spin-button");
 
     const rand = (m, M) => Math.random() * (M - m) + m;
-    const friction = rand(0.996, 0.998); // 0.996 is fast, 0.998 is slow
+    var friction = 0.997 //
     let angVel = 0; // Initial Angular velocity
     let ang = rand(0, tau); // Initial angle in radians
+
+    var startTime, endTime
 
     (function () {
       const canvas = document.getElementById('roleta')
@@ -39,23 +41,29 @@
       engine();
       EL_spin.addEventListener("click", () => {
         console.log("rodou a roleta!") // Should play music here.
-        if (!angVel) angVel = rand(0.25, 0.35);
+        if (!angVel){
+          angVel = rand(0.4, 0.6);
+          friction = rand(0.996, 0.998); // 0.996 is fast, 0.998 is slow
+          console.log("Seed initial angVelocity: ", angVel)
+          console.log("Seed friction: ", friction)
+          startTime = Date.now();
+        }
       });
     }
 
-    console.log("Versão 07/08/2021")
+    console.log("Versão 22/08/2021")
 
     const values = [
-      5.818,
-      6.182,
-      8.250,
-      5.500,
+      5.909,
+      6.273,
+      8.375,
+      5.600,
       7.667,
-      9.000,
-      6.000,
-      6.667,
-      7.750,
-      5.000
+      9.167,
+      6.143,
+      5.857,
+      8.000,
+      5.000,
     ]
     const names = [
       "Alessandro",
@@ -67,25 +75,53 @@
       "Pedro",
       "Katague",
       "Samu",
-      "Vivian"
+      "Vivian",
     ]
 
-    const sum = values.reduce((a, b) => a+b)
-    const sections = []
+    const eligible = [
+      true, //  "Alessandro",
+      true, //  "Diego",
+      true, //  "Gabriel",
+      true, //  "Renato",
+      true, //  "Romio",
+      true, //  "Rafa",
+      false, // "Pedro",
+      false, // "Katague",
+      true, //  "Samu",
+      true, //   "Vivian"
+    ]
+
+    const fullObject = []
     for (let index = 0; index < values.length; index++) {
       const element = {
-        text: names[index],
-        size: values[index] / sum
+        name: names[index],
+        weight: values[index],
+        eligible: eligible[index]
       }
-      sections.push(element)
+      fullObject.push(element)
+    }
+    
+    const sum = fullObject.filter(element => element.eligible).map(element => element.weight).reduce((a, b) => a+b)
+
+    const sections = []
+    for (let index = 0; index < fullObject.length; index++) {
+      const current = fullObject[index];
+      if(current.eligible){
+        const element = {
+          text: current.name,
+          size: current.weight / sum
+        }
+        sections.push(element)
+      }
     }
 
-    
+    // const taCerto = sections.map(element => element.size).reduce((a, b) => a+b)
+    // console.log("Deveria ser 1: ", taCerto)
 
     function draw(angleOffset) {
       ctx.save()
       ctx.strokeStyle = 'black'
-      ctx.fillStyle = 'red'
+      ctx.fillStyle = 'purple'
 
       drawCircle(centerX, centerY, radius)
       drawPointer(centerX + radius, centerY)
@@ -144,7 +180,12 @@
     function frame() {
       if (!angVel) return;
       angVel *= friction; // Decrement velocity by friction
-      if (angVel < 0.001) angVel = 0; // Bring to stop
+      if (angVel < 0.001){
+        angVel = 0; // Bring to stop
+        endTime = Date.now();
+        var elapsedTime = endTime - startTime;
+        console.log("Rodou a roleta por " + elapsedTime + " miliseconds")
+      }
       ang += angVel; // Update angle
       ang %= tau; // Normalize angle
       draw(ang);
