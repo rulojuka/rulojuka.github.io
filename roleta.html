@@ -51,17 +51,17 @@
       });
     }
 
-    console.log("Versão 22/08/2021")
+    console.log("Versão 29/08/2021")
 
     const values = [
-      5.909,
-      6.273,
-      8.375,
+      6.000,
+      6.364,
+      8.500,
       5.600,
-      7.667,
-      9.167,
-      6.143,
-      5.857,
+      7.833,
+      8.000,
+      6.286,
+      6.000,
       8.000,
       5.000,
     ]
@@ -84,8 +84,8 @@
       true, //  "Gabriel",
       true, //  "Renato",
       true, //  "Romio",
-      true, //  "Rafa",
-      false, // "Pedro",
+      false, //  "Rafa",
+      true, // "Pedro",
       false, // "Katague",
       true, //  "Samu",
       true, //   "Vivian"
@@ -121,7 +121,7 @@
     function draw(angleOffset) {
       ctx.save()
       ctx.strokeStyle = 'black'
-      ctx.fillStyle = 'purple'
+      ctx.fillStyle = 'cyan'
 
       drawCircle(centerX, centerY, radius)
       drawPointer(centerX + radius, centerY)
