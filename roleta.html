@@ -14,11 +14,11 @@
     // https://stackoverflow.com/a/33850748/2272160
     // https://konvajs.org/docs/sandbox/Wheel_of_Fortune.html
 
-    let URL = "https://xw3m749mf0.execute-api.us-east-1.amazonaws.com/default/cda-dev-hello"
+    let URL = "https://dqt6j1ktj7.execute-api.us-east-1.amazonaws.com/default/cda-dev-hello"
 
-    // fetch(URL)
-    // .then(response => response.json())
-    // .then(data => console.log(data));
+    fetch(URL)
+    .then(response => response.json())
+    .then(data => console.log(data));
 
     RESPONSE = '{"names":["Alessandro","Diego","Gabriel","Renato","Romio","Rafa","Pedro","Katague","Samu","Vivian"],"values":["5.462","6.231","8.556","6.000","6.714","7.222","5.444","6.250","9.250","7.000"],"eligible":[false,true,true,true,false,false,false,true,true,true]}'
     data = JSON.parse(RESPONSE)
