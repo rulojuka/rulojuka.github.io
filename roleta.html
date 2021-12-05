@@ -13,6 +13,21 @@
     // https://raksy.dyndns.org/wheel.html
     // https://stackoverflow.com/a/33850748/2272160
     // https://konvajs.org/docs/sandbox/Wheel_of_Fortune.html
+
+    let URL = "https://xw3m749mf0.execute-api.us-east-1.amazonaws.com/default/cda-dev-hello"
+
+    // fetch(URL)
+    // .then(response => response.json())
+    // .then(data => console.log(data));
+
+    RESPONSE = '{"names":["Alessandro","Diego","Gabriel","Renato","Romio","Rafa","Pedro","Katague","Samu","Vivian"],"values":["5.462","6.231","8.556","6.000","6.714","7.222","5.444","6.250","9.250","7.000"],"eligible":[false,true,true,true,false,false,false,true,true,true]}'
+    data = JSON.parse(RESPONSE)
+    
+    console.log(data)
+    const values = data["values"].map(parseFloat)
+    const names = data["names"]
+    const eligible = data["eligible"]
+
     let canvas, ctx
     let centerX, centerY
     var radius = 350;
@@ -50,46 +65,6 @@
         }
       });
     }
-
-    console.log("Versão 14/11/2021")
-
-    const values = [
-      5.462,
-      6.231,
-      8.556,
-      6.000,
-      6.714,
-      8.125,
-      5.444,
-      6.250,
-      9.250,
-      7.000
-    ]
-    const names = [
-      "Alessandro",
-      "Diego",
-      "Gabriel",
-      "Renato",
-      "Romio",
-      "Rafa",
-      "Pedro",
-      "Katague",
-      "Samu",
-      "Vivian",
-    ]
-
-    const eligible = [
-      false, //  "Alessandro",
-      true, //  "Diego",
-      true, //  "Gabriel",
-      true, //  "Renato",
-      true, //  "Romio",
-      false, //  "Rafa",
-      true, // "Pedro",
-      true, // "Katague",
-      true, //  "Samu",
-      true, //   "Vivian"
-    ]
 
     const fullObject = []
     for (let index = 0; index < values.length; index++) {
