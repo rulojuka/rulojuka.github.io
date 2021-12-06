@@ -16,17 +16,18 @@
 
     let URL = "https://dqt6j1ktj7.execute-api.us-east-1.amazonaws.com/default/cda-dev-hello"
 
+    let values,names,eligible
+
     fetch(URL)
     .then(response => response.json())
-    .then(data => console.log(data));
-
-    RESPONSE = '{"names":["Alessandro","Diego","Gabriel","Renato","Romio","Rafa","Pedro","Katague","Samu","Vivian"],"values":["5.462","6.231","8.556","6.000","6.714","7.222","5.444","6.250","9.250","7.000"],"eligible":[false,true,true,true,false,false,false,true,true,true]}'
-    data = JSON.parse(RESPONSE)
-    
-    console.log(data)
-    const values = data["values"].map(parseFloat)
-    const names = data["names"]
-    const eligible = data["eligible"]
+    .then(
+      data => {
+        console.log(data)
+        values = data["values"].map(parseFloat)
+        names = data["names"]
+        eligible = data["eligible"]
+      }
+    );
 
     let canvas, ctx
     let centerX, centerY
