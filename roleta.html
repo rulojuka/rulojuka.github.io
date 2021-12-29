@@ -16,18 +16,9 @@
 
     let URL = "https://dqt6j1ktj7.execute-api.us-east-1.amazonaws.com/default/cda-dev-hello"
 
-    let values,names,eligible
-
-    fetch(URL)
-    .then(response => response.json())
-    .then(
-      data => {
-        console.log(data)
-        values = data["values"].map(parseFloat)
-        names = data["names"]
-        eligible = data["eligible"]
-      }
-    );
+    let values = []
+    let names,eligible
+    let fullObject,sections
 
     let canvas, ctx
     let centerX, centerY
@@ -49,10 +40,30 @@
       centerY = canvas.height / 2;
     })()
 
+    console.log("Awaiting fetch!")
+    fetch(URL)
+    .then(response => response.json())
+    .then(
+      data => {
+        console.log(data)
+        values = data["values"].map(parseFloat)
+        console.log("values is:", values)
+        names = data["names"]
+        console.log("names is:", names)
+        eligible = data["eligible"]
+        console.log("eligible is:", eligible)
+        console.log("Running init")
+        init()
+      }
+    );
+
+    
+
     // setup config variables and start the program
     function init() {
       canvas = document.getElementById('roleta')
       ctx = canvas.getContext('2d')
+      populateData()
       draw(ang);
       engine();
       EL_spin.addEventListener("click", () => {
@@ -67,21 +78,23 @@
       });
     }
 
-    const fullObject = []
-    for (let index = 0; index < values.length; index++) {
-      const element = {
-        name: names[index],
-        weight: values[index],
-        eligible: eligible[index]
-      }
-      fullObject.push(element)
-    }
-    
-    const sum = fullObject.filter(element => element.eligible).map(element => element.weight).reduce((a, b) => a+b)
+    function populateData(){
 
-    const sections = []
-    for (let index = 0; index < fullObject.length; index++) {
-      const current = fullObject[index];
+      fullObject = []
+      for (let index = 0; index < values.length; index++) {
+        const element = {
+          name: names[index],
+          weight: values[index],
+          eligible: eligible[index]
+        }
+        fullObject.push(element)
+      }
+      
+      const sum = fullObject.filter(element => element.eligible).map(element => element.weight).reduce((a, b) => a+b)
+      
+      sections = []
+      for (let index = 0; index < fullObject.length; index++) {
+        const current = fullObject[index];
       if(current.eligible){
         const element = {
           text: current.name,
@@ -90,9 +103,8 @@
         sections.push(element)
       }
     }
+  }
 
-    // const taCerto = sections.map(element => element.size).reduce((a, b) => a+b)
-    // console.log("Deveria ser 1: ", taCerto)
 
     function draw(angleOffset) {
       ctx.save()
@@ -172,7 +184,6 @@
       requestAnimationFrame(engine)
     }
 
-    document.addEventListener('DOMContentLoaded', init)
   </script>
 
 </body>
